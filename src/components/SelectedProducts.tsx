@@ -21,8 +21,8 @@ export const SelectedProducts = () => {
         localStorage.setItem('selectedProducts', JSON.stringify([]));
     };
 
-    const handleDeleteSelectedProduct = () => {
-        const newSelectedProducts = selectedProducts.filter((product) => product.name !== selectedProducts[0].name);
+    const handleDeleteSelectedProduct = (product: Product) => {
+        const newSelectedProducts = selectedProducts.filter((product: Product) => product.id === selectedProducts.id);
 
         setContext({
             selectedProducts: newSelectedProducts
@@ -34,11 +34,18 @@ export const SelectedProducts = () => {
     return (
         <div>
             {selectedProducts &&
-                selectedProducts.map((product, index) => {
+                selectedProducts.map((product: Product) => {
                     return (
-                        <div key={index}>
+                        <div key={product.id}>
                             <h3>
-                                {product.name} ({product.quantity}) <button onClick={handleDeleteSelectedProduct}>Изтрий</button>
+                                {product.name} ({product.quantity}){' '}
+                                <button
+                                    onClick={() => {
+                                        handleDeleteSelectedProduct(product);
+                                    }}
+                                >
+                                    Изтрий
+                                </button>
                             </h3>
                         </div>
                     );

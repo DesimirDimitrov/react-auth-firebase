@@ -1,31 +1,54 @@
 import { useContext } from 'react';
-import { GLOBAL_CONTEXT } from '../contexts/GlobalStore';
+import { DefaultProduct, GLOBAL_CONTEXT, Product } from '../contexts/GlobalStore';
 
 export const DefaultProducts = () => {
     const { context, setContext } = useContext(GLOBAL_CONTEXT);
     const defaultProducts = context.defaultProducts;
 
-    const handleProductSelect = (product) => {
-        const selectedProduct = {
-            name: product,
-            quantity: 1
-        };
+    const handleProductSelect = (product: DefaultProduct) => {
+        const productAlreadySelected = productExists(product);
 
-        setContext({
-            selectedProducts: [...context.selectedProducts, selectedProduct]
-        });
+        if (productAlreadySelected) {
+            const selectedProduct = context.selectedProducts.find((selectedProduct) => selectedProduct.id === product.id);
+            selectedProduct!.quantity += 1;
+            setContext({
+                selectedProducts: [...context.selectedProducts]
+            });
 
-        localStorage.setItem('selectedProducts', JSON.stringify(context.selectedProducts));
+            localStorage.setItem('selectedProducts', JSON.stringify([...context.selectedProducts]));
+        } else {
+            const selectedProduct = {
+                id: product.id,
+                name: product.name,
+                quantity: 1
+            } as Product;
+
+            setContext({
+                selectedProducts: [...context.selectedProducts, selectedProduct]
+            });
+
+            localStorage.setItem('selectedProducts', JSON.stringify([...context.selectedProducts, selectedProduct]));
+        }
     };
+
+    function productExists(product: DefaultProduct) {
+        return context.selectedProducts.some((selectedProduct) => {
+            if (selectedProduct.id === product.id) {
+                return selectedProduct;
+            } else {
+                return false;
+            }
+        });
+    }
 
     return (
         <ul>
             {defaultProducts &&
-                defaultProducts.map((product, index) => {
+                defaultProducts.map((product) => {
                     return (
-                        <li key={index}>
+                        <li key={product.id}>
                             <button style={{ margin: '10px', padding: '5px' }} onClick={() => handleProductSelect(product)}>
-                                {product}
+                                {product.name}
                             </button>
                         </li>
                     );

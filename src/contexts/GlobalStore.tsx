@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 
+export type DefaultProduct = {
+    id: number;
+    name: string;
+};
+
 export type Product = {
+    id: number;
     name: string;
     quantity: number;
 };
 
 export interface IStore {
     selectedProducts: Product[];
-    defaultProducts?: string[];
+    defaultProducts?: DefaultProduct[];
 }
 
 interface IContext {
@@ -15,7 +21,28 @@ interface IContext {
     setContext: (context: IStore) => void;
 }
 
-export const defaultProducts = ['Бисквити Милка', 'Кока Кола', 'Пепси', 'Слънчо', 'Мляко', 'Яйца', 'Хляб', 'Масло', 'Сирене', 'Кашкавал', 'Кисело мляко'];
+export const defaultProducts = [
+    {
+        id: 1,
+        name: 'Хляб'
+    },
+    {
+        id: 2,
+        name: 'Прясно Мляко'
+    },
+    {
+        id: 3,
+        name: 'Яйца'
+    },
+    {
+        id: 4,
+        name: 'Кисело Мляко'
+    },
+    {
+        id: 5,
+        name: 'Бисквити Милка'
+    }
+] as DefaultProduct[];
 
 export const GLOBAL_CONTEXT = React.createContext({} as IContext);
 
