@@ -5,8 +5,6 @@ export const DefaultProducts = () => {
     const { context, setContext } = useContext(GLOBAL_CONTEXT);
     const defaultProducts = context.defaultProducts;
 
-    console.log('context', context);
-
     const handleProductSelect = (product) => {
         const selectedProduct = {
             name: product,
@@ -16,6 +14,8 @@ export const DefaultProducts = () => {
         setContext({
             selectedProducts: [...context.selectedProducts, selectedProduct]
         });
+
+        localStorage.setItem('selectedProducts', JSON.stringify(context.selectedProducts));
     };
 
     return (

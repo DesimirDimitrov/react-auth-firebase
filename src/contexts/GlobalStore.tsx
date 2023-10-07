@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type Product = {
+export type Product = {
     name: string;
     quantity: number;
 };
