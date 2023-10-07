@@ -16,12 +16,15 @@ export const SelectedProducts = () => {
             {selectedProducts.map((product, index) => {
                 return (
                     <div key={index}>
-                        <span>{product.name}</span>
-                        <span>{product.quantity}</span>
+                        <h3>
+                            {product.name} ({product.quantity})
+                        </h3>
                     </div>
                 );
             })}
-            <button onClick={handleEmptyBasket}>Изпразни кошницата</button>
+            <button style={{ margin: '10px', padding: '5px' }} onClick={handleEmptyBasket}>
+                Изпразни кошницата
+            </button>
         </div>
     );
 };

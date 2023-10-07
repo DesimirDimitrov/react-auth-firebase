@@ -13,8 +13,6 @@ export const DefaultProducts = () => {
             quantity: 1
         };
 
-        console.log('selectedProduct', selectedProduct);
-
         setContext({
             selectedProducts: [...context.selectedProducts, selectedProduct]
         });
@@ -26,7 +24,9 @@ export const DefaultProducts = () => {
                 defaultProducts.map((product, index) => {
                     return (
                         <li key={index}>
-                            <button onClick={() => handleProductSelect(product)}>{product}</button>
+                            <button style={{ margin: '10px', padding: '5px' }} onClick={() => handleProductSelect(product)}>
+                                {product}
+                            </button>
                         </li>
                     );
                 })}
